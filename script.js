@@ -1,5 +1,3 @@
-// Updated script.js with mobile navigation functionality
-
 // MobileFix Pro - Static Website Application
 class MobileFixApp {
   constructor() {
@@ -8,9 +6,9 @@ class MobileFixApp {
     this.cartOpen = false
     this.isAdminLoggedIn = false
     this.editingProductId = null
-    this.productSearch = "" // Add search state variables
-    this.adminSearch = "" // Add search state variables
-    this.mobileMenuOpen = false // Track mobile menu state
+    this.productSearch = ""
+    this.adminSearch = ""
+    this.mobileMenuOpen = false
     this.loadProductsFromStorage()
     this.loadTrackingFromStorage()
     this.init()
@@ -184,7 +182,6 @@ class MobileFixApp {
     }
   }
 
-  // Save tracking data to storage
   saveTrackingToStorage() {
     localStorage.setItem("mobilefix_tracking", JSON.stringify(this.trackingData))
   }
@@ -251,28 +248,28 @@ class MobileFixApp {
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen
-    const mobileMenu = document.querySelector('.mobile-nav-menu')
-    const menuToggle = document.querySelector('.mobile-menu-toggle')
-    
+    const mobileMenu = document.querySelector(".mobile-nav-menu")
+    const menuToggle = document.querySelector(".mobile-menu-toggle")
+
     if (mobileMenu) {
       if (this.mobileMenuOpen) {
-        mobileMenu.classList.add('active')
-        menuToggle.classList.add('active')
+        mobileMenu.classList.add("active")
+        menuToggle.classList.add("active")
       } else {
-        mobileMenu.classList.remove('active')
-        menuToggle.classList.remove('active')
+        mobileMenu.classList.remove("active")
+        menuToggle.classList.remove("active")
       }
     }
   }
 
   closeMobileMenu() {
     this.mobileMenuOpen = false
-    const mobileMenu = document.querySelector('.mobile-nav-menu')
-    const menuToggle = document.querySelector('.mobile-menu-toggle')
-    
+    const mobileMenu = document.querySelector(".mobile-nav-menu")
+    const menuToggle = document.querySelector(".mobile-menu-toggle")
+
     if (mobileMenu) {
-      mobileMenu.classList.remove('active')
-      menuToggle.classList.remove('active')
+      mobileMenu.classList.remove("active")
+      menuToggle.classList.remove("active")
     }
   }
 
@@ -380,7 +377,6 @@ class MobileFixApp {
   deleteProduct(productId) {
     if (confirm("Are you sure you want to delete this product?")) {
       this.products = this.products.filter((p) => p.id !== productId)
-      // Remove corresponding tracking data if product is deleted
       const productToDelete = this.products.find((p) => p.id === productId)
       if (productToDelete && productToDelete.qrId && productToDelete.qrPassword) {
         this.trackingData = this.trackingData.filter(
@@ -440,7 +436,6 @@ class MobileFixApp {
                     </div>
                     <div class="nav-links">
                         <button class="nav-link ${this.currentPage === "home" ? "active" : ""}" data-page="home">Home</button>
-                        <!-- Changed Shop Location to navigate to embedded map page instead of external link -->
                         <button class="nav-link ${this.currentPage === "shop-location" ? "active" : ""}" data-page="shop-location">Shop Location</button>
                         <button class="nav-link ${this.currentPage === "products" ? "active" : ""}" data-page="products">Products</button>
                         <button class="nav-link ${this.currentPage === "about" ? "active" : ""}" data-page="about">About</button>
@@ -491,7 +486,6 @@ class MobileFixApp {
                 <a href="https://www.google.com/maps/search/Melmaruvathur,+to,+Vandavasi+Rd,+Ramapuram,+Tamil+Nadu+603201" target="_blank" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Visit Us</a>
               </div>
 
-              <!-- Updated contact info with correct address -->
               <div class="contact-info" style="background-color: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 32px;">
                 <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Get In Touch</h3>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -569,10 +563,8 @@ class MobileFixApp {
             <p style="color: #94a3b8;">Manage your products (left) and repair tracking (right)</p>
           </div>
 
-          <!-- Two column layout: Products on left, Tracking on right -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
             
-            <!-- LEFT COLUMN: PRODUCT MANAGEMENT -->
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                 <h2 style="font-size: 28px; font-weight: 700;">Products</h2>
@@ -616,7 +608,6 @@ class MobileFixApp {
               </div>
             </div>
 
-            <!-- RIGHT COLUMN: TRACKING MANAGEMENT -->
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                 <h2 style="font-size: 28px; font-weight: 700;">Tracking Orders</h2>
@@ -725,7 +716,6 @@ class MobileFixApp {
       return
     }
 
-    // Check if tracking already exists
     if (this.trackingData.find((t) => t.qrId === qrId && t.qrPassword === password)) {
       alert("This QR ID and Password combination already exists")
       return
@@ -833,12 +823,8 @@ class MobileFixApp {
                 <p style="color: #94a3b8; font-size: 12px; margin-bottom: 8px;">Option 3: Emoji/Icon</p>
                 <input type="text" class="input" placeholder="📱 or 🔧 or 📦" id="productImage" maxlength="2">
               </div>
-              <div id="imagePreview" style="margin-top: 12px;">
-                <img id="previewImg" style="max-width: 100%; max-height: 200px; border-radius: 8px; display: none;">
-              </div>
             </div>
 
-            <!-- Add QR ID and password fields for mobile tracking -->
             <div style="background-color: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 24px;">
               <p style="font-size: 12px; color: #fb923c; margin: 0 0 16px 0;"><strong>Mobile Repair Tracking (Optional)</strong></p>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -850,17 +836,6 @@ class MobileFixApp {
                   <label class="form-label">Password</label>
                   <input type="text" class="input" placeholder="e.g., pass123" id="productQRPassword">
                 </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label">Tracking Status</label>
-                <select class="input" id="productTrackingStatus" style="background-color: rgba(51, 65, 85, 0.5); color: #f8fafc;">
-                  <option value="Received">Received</option>
-                  <option value="Diagnostics">Diagnostics</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Quality Check">Quality Check</option>
-                  <option value="Ready for Pickup">Ready for Pickup</option>
-                  <option value="Completed">Completed</option>
-                </select>
               </div>
             </div>
 
@@ -930,9 +905,6 @@ class MobileFixApp {
                 <p style="color: #94a3b8; font-size: 12px; margin-bottom: 8px;">Option 3: Emoji/Icon</p>
                 <input type="text" class="input" value="${product.image}" id="productImage" maxlength="2">
               </div>
-              <div id="imagePreview" style="margin-top: 12px;">
-                ${product.imageUrl ? `<img src="${product.imageUrl}" style="max-width: 100%; max-height: 200px; border-radius: 8px;">` : ""}
-              </div>
             </div>
 
             <div style="background-color: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 24px;">
@@ -946,33 +918,6 @@ class MobileFixApp {
                   <label class="form-label">Password</label>
                   <input type="text" class="input" value="${product.qrPassword || ""}" id="productQRPassword">
                 </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label">Tracking Status</label>
-                <select class="input" id="productTrackingStatus" style="background-color: rgba(51, 65, 85, 0.5); color: #f8fafc;">
-                  <option value="Received" ${product.trackingStatus === "Received" ? "selected" : ""}>Received</option>
-                  <option value="Diagnostics" ${product.trackingStatus === "Diagnostics" ? "selected" : ""}>Diagnostics</option>
-                  <option value="In Progress" ${product.trackingStatus === "In Progress" ? "selected" : ""}>In Progress</option>
-                  <option value="Quality Check" ${product.trackingStatus === "Quality Check" ? "selected" : ""}>Quality Check</option>
-                  <option value="Ready for Pickup" ${product.trackingStatus === "Ready for Pickup" ? "selected" : ""}>Ready for Pickup</option>
-                  <option value="Completed" ${product.trackingStatus === "Completed" ? "selected" : ""}>Completed</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Added owner profile section with gender selection and avatar images -->
-            <div style="background-color: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 24px;">
-              <p style="font-size: 12px; color: #a855f7; margin: 0 0 16px 0;"><strong>Owner Profile</strong></p>
-              <div class="form-field">
-                <label class="form-label">Gender</label>
-                <select class="input" id="productOwnerGender" style="background-color: rgba(51, 65, 85, 0.5); color: #f8fafc;">
-                  <option value="none" ${!product.ownerGender || product.ownerGender === "none" ? "selected" : ""}>None</option>
-                  <option value="woman" ${product.ownerGender === "woman" ? "selected" : ""}>Woman</option>
-                  <option value="man" ${product.ownerGender === "man" ? "selected" : ""}>Man</option>
-                </select>
-              </div>
-              <div id="avatarPreview" style="margin-top: 12px; text-align: center;">
-                ${product.ownerGender === "woman" ? `<img src="https://i.pinimg.com/736x/3c/63/1b/3c631b97815217aaa9716d368feb990a.jpg" alt="Woman Avatar" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #a855f7;">` : product.ownerGender === "man" ? `<img src="https://i.pinimg.com/736x/98/d4/e3/98d4e3c28316349f3f7ccc976929e986.jpg" alt="Man Avatar" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #a855f7;">` : `<p style="color: #94a3b8; font-size: 12px;">Select a gender to see avatar preview</p>`}
               </div>
             </div>
 
@@ -996,9 +941,6 @@ class MobileFixApp {
       reader.onload = (e) => {
         const base64Image = e.target.result
         document.getElementById("productImageUrl").value = base64Image
-        const img = document.getElementById("previewImg")
-        img.src = base64Image
-        img.style.display = "block"
       }
       reader.readAsDataURL(file)
     }
@@ -1197,7 +1139,6 @@ class MobileFixApp {
                     <h1>Repair Services & Parts</h1>
                     <p>Professional mobile repair services, genuine parts, and accessories</p>
                     
-                    <!-- Add search bar to products page -->
                     <div style="margin-top: 32px; display: flex; gap: 12px; max-width: 400px;">
                         <input 
                             type="text" 
@@ -1514,15 +1455,10 @@ class MobileFixApp {
           </div>
 
           <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
-            <!-- Updated Google Maps embed with correct coordinates (12.467955, 79.758007) and made clickable to open in Google Maps -->
             <div style="background-color: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 12px; overflow: hidden; height: 600px; position: relative; cursor: pointer;" onclick="window.open('https://www.google.com/maps/search/12.467955,79.758007', '_blank')">
               <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1332.6836960168596!2d79.7577830285442!3d12.468113512373563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x3a5319fc59689b47%3A0x9c923c48fdc1fb6b!2sMelmaruvathur!3m2!1d12.4268234!2d79.82995919999999!4m5!1s0x3a531020aa862667%3A0xe25d880e8f98bf09!2sVandavasi%20Rd%2C%20Ramapuram%2C%20Tamil%20Nadu%20603201!3m2!1d12.4451387!2d79.81148309999999!5e1!3m2!1sen!2sin!4v1762845054152!5m2!1sen!2sin" width="100%" height="100%" style="border:0; pointer-events: none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(251, 146, 60, 0.05)); pointer-events: none; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;" class="map-overlay-hover" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
-                <span style="color: #22d3ee; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Click to open in Google Maps →</span>
-              </div>
             </div>
 
-            <!-- Shop Details -->
             <div>
               <div style="background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(239, 68, 68, 0.2)); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 12px; padding: 32px; margin-bottom: 24px;">
                 <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 24px;">Contact Information</h2>
